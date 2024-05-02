@@ -53,18 +53,6 @@
   font-weight: 500;
 }
 
-.salary {
-  font-weight: 400;
-  font-size: 14px;
-  color: rgb(77, 89, 106);
-  white-space: nowrap;
-  margin: 10px 0;
-}
-
-.estimate {
-  margin-left: 4px;
-}
-
 .expLabel {
   font-size: 13px;
   font-weight: 600;

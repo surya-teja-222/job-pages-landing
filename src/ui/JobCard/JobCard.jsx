@@ -3,9 +3,10 @@ import React, {
 } from 'react';
 
 import {
-  Modal, Tooltip, Paper, Box, Button,
+  Modal, Paper, Box, Button,
 } from '@mui/material';
 import styles from './JobCard.module.css';
+import EstimatedSalary from '../EstimatedSalary';
 
 function JobCard({
   job,
@@ -79,29 +80,12 @@ function JobCard({
           {location && (<div className={styles.location}>{location}</div>)}
         </div>
       </div>
-      <div className={styles.salary}>
-        Estimated Salary:
-        { minJdSalary && ` ${minJdSalary}k ${salaryCurrencyCode}` }
-        {
-          minJdSalary && maxJdSalary && (
-            ` - ${maxJdSalary}k ${salaryCurrencyCode}`
-          )
-        }
-        {!minJdSalary && !maxJdSalary && ' Not Available'}
-        {
-          !minJdSalary && maxJdSalary && (
-            ` Upto ${maxJdSalary}k ${salaryCurrencyCode}`
-          )
-        }
-        { !isOriginalSalary && (
-          <Tooltip
-            title="Offered Salary Range"
-            className={styles.estimate}
-          >
-            ✅
-          </Tooltip>
-        )}
-      </div>
+      <EstimatedSalary
+        minJdSalary={minJdSalary}
+        maxJdSalary={maxJdSalary}
+        salaryCurrencyCode={salaryCurrencyCode}
+        isOriginalSalary={isOriginalSalary}
+      />
       <div className={styles.jdContainer}>
         <div className={styles.about}>
           About Company
