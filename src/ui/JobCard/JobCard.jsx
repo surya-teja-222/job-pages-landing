@@ -117,19 +117,17 @@ function JobCard({
         className={styles.cta}
         onClick={() => setIsApplied(true)}
       >
-        {
-          !isApplied ? (
-            <>
-              <div className={styles.flash}>⚡</div>
-              Easy Apply
-            </>
-          ) : (
-            <>
-              Applied
-              <div className={styles.flash}>🔥</div>
-            </>
-          )
-        }
+        {!isApplied ? (
+          <>
+            <div className={styles.flash}>⚡</div>
+            Easy Apply
+          </>
+        ) : (
+          <>
+            Applied
+            <div className={styles.flash}>🔥</div>
+          </>
+        )}
       </Button>
       <Modal
         open={isModalOpen}
