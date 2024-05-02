@@ -3,22 +3,25 @@ import React from 'react';
 import {
   FormControl, InputLabel, MenuItem, Select, OutlinedInput,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { uniqueCompaniesSelector } from '../../selectors/jobs';
+import { setPreferredCompanies } from '../../stores/jobFilters';
+import { filtersSelector } from '../../selectors/jobFilters';
 
 export default function AvaliableCompaniesSelect() {
+  const dispatch = useDispatch();
   const companies = useSelector(uniqueCompaniesSelector);
-
-  const [personName, setPersonName] = React.useState([]);
+  const {
+    preferredCompanies,
+  } = useSelector(filtersSelector);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
+    dispatch(setPreferredCompanies(
       typeof value === 'string' ? value.split(',') : value,
-    );
+    ));
   };
   return (
     <FormControl sx={{ width: 200 }} size="small">
@@ -26,7 +29,7 @@ export default function AvaliableCompaniesSelect() {
       <Select
         labelId="company_select"
         multiple
-        value={personName}
+        value={preferredCompanies || []}
         onChange={handleChange}
         input={<OutlinedInput label="company_select" />}
       >

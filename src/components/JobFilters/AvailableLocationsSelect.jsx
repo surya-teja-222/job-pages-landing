@@ -3,30 +3,34 @@ import React from 'react';
 import {
   FormControl, InputLabel, MenuItem, Select, OutlinedInput,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { uniqueLocationsSelector } from '../../selectors/jobs';
+import { filtersSelector } from '../../selectors/jobFilters';
+import { setPreferredLocations } from '../../stores/jobFilters';
 
 export default function AvaliableLocationSelect() {
+  const dispatch = useDispatch();
   const locations = useSelector(uniqueLocationsSelector);
-
-  const [personName, setPersonName] = React.useState([]);
+  const {
+    preferredLocations,
+  } = useSelector(filtersSelector);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
+    dispatch(setPreferredLocations(
       typeof value === 'string' ? value.split(',') : value,
-    );
+    ));
   };
+
   return (
     <FormControl sx={{ width: 200 }} size="small">
       <InputLabel>Location</InputLabel>
       <Select
         labelId="location_select"
         multiple
-        value={personName}
+        value={preferredLocations || []}
         onChange={handleChange}
         input={<OutlinedInput label="location_select" />}
       >

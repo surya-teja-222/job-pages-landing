@@ -21,7 +21,7 @@ export function setPreferredCompanies(preferredCompanies) {
   return {
     type: SET_PREFERRED_COMPANIES,
     payload: {
-      preferredCompanies,
+      preferredCompanies: preferredCompanies.length ? preferredCompanies : null,
     },
   };
 }
@@ -30,7 +30,7 @@ export function setPreferredLocations(preferredLocations) {
   return {
     type: SET_PREFERRED_LOCATIONS,
     payload: {
-      preferredLocations,
+      preferredLocations: preferredLocations.length ? preferredLocations : null,
     },
   };
 }
@@ -48,7 +48,7 @@ export function setPreferedTechStack(preferedTechStack) {
   return {
     type: SET_PREFERED_TECH_STACK,
     payload: {
-      preferedTechStack,
+      preferedTechStack: preferedTechStack.length ? preferedTechStack : null,
     },
   };
 }
@@ -57,7 +57,7 @@ export function setPreferredRoles(preferredRoles) {
   return {
     type: SET_PREFERRED_ROLES,
     payload: {
-      preferredRoles,
+      preferredRoles: preferredRoles.length ? preferredRoles : null,
     },
   };
 }

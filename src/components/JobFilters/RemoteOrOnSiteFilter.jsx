@@ -3,20 +3,35 @@ import React from 'react';
 import {
   FormControl, FormControlLabel, Checkbox,
 } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPrefersOnsiteOrRemote } from '../../stores/jobFilters';
+import { filtersSelector } from '../../selectors/jobFilters';
 
 function RemoteOrOnSiteFilter() {
-  const [checked, setChecked] = React.useState(true);
+  const dispatch = useDispatch();
+
+  const {
+    prefersOnsiteOrRemote,
+  } = useSelector(filtersSelector);
 
   const handleChange = (event) => {
-    setChecked(event.target.checked);
+    dispatch(setPrefersOnsiteOrRemote(
+      event.target.checked ? 'remote' : null,
+    ));
   };
 
   return (
     <FormControl>
       <FormControlLabel
-        control={
-          <Checkbox defaultChecked onChange={handleChange} checked={checked} />
-        }
+        control={(
+          <Checkbox
+            defaultChecked
+            onChange={handleChange}
+            checked={
+              prefersOnsiteOrRemote === 'remote'
+            }
+          />
+        )}
         label="Select if You Prefer Remote Only Opportunities"
       />
     </FormControl>

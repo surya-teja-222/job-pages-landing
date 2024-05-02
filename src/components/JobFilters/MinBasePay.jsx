@@ -3,25 +3,32 @@ import React from 'react';
 import {
   FormControl, InputLabel, MenuItem, Select,
 } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { filtersSelector } from '../../selectors/jobFilters';
+import { setMinBasePay } from '../../stores/jobFilters';
 
 export default function MinBasePay() {
-  const [age, setAge] = React.useState(null);
+  const dispatch = useDispatch();
+
+  const {
+    minBasePay,
+  } = useSelector(filtersSelector);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    dispatch(setMinBasePay(event.target.value));
   };
 
   return (
     <FormControl sx={{ width: 200 }} size="small">
       <InputLabel>Min Pay</InputLabel>
       <Select
-        labelId="exp"
-        value={age}
+        labelId="base_pay_select"
+        value={minBasePay}
         label="Experience"
         onChange={handleChange}
       >
         {
-          Array.from({ length: 10 }, (_, i) => i * 10).map((i) => (
+          Array.from({ length: 11 }, (_, i) => i * 10).map((i) => (
             <MenuItem key={i} value={i}>{`${i} K USD`}</MenuItem>
           ))
         }
