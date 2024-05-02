@@ -1,13 +1,144 @@
-/* .JobCard {
-  margin: 15rem;
-} */
-
 .jobCard {
   transition: all 0.2s ease-in-out !important;
   border-radius: 20px !important;
   padding: 20px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 20rem;
 }
 
 .jobCard:hover {
   transform: scale(1.01)
+}
+
+.heroItems {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.heroDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+
+.companyName {
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: #8b8b8b;
+  text-decoration: none;
+}
+
+.companyName:hover {
+  text-decoration: underline;
+}
+
+.role {
+  font-size: 14px;
+  line-height: 1.5;
+  text-transform: capitalize;
+}
+
+.location {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.salary {
+  font-weight: 400;
+  font-size: 14px;
+  color: rgb(77, 89, 106);
+  white-space: nowrap;
+  margin: 10px 0;
+}
+
+.estimate {
+  margin-left: 4px;
+}
+
+.expLabel {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #8b8b8b;
+  margin-top: 20px;
+}
+
+.expValue {
+  font-size: 14px;
+}
+
+.jdContainer {
+  position: relative;
+}
+
+.jdContent {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #8b8b8b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+  mask-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255), rgba(255, 255, 255, 0));
+}
+
+.about {
+  font-weight: 500;
+}
+
+.showMore {
+  text-align: center;
+  color: #4943da;
+  font-size: 14px;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modalHeader {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.cta {
+  margin-top: auto !important;
+  background-color: rgb(85, 239, 196) !important;
+  color: rgb(0, 0, 0) !important;
+  font-weight: 600 !important;
+  line-height: 1.75 !important;
+}
+
+.flash {
+  scale: 1.2;
+  margin-right: 10px;
 }

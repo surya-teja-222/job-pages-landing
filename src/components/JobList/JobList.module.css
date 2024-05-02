@@ -1,4 +1,7 @@
 .jobList {
   padding: 40px;
   overflow-x: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 60px;
 }

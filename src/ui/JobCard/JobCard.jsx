@@ -1,6 +1,10 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, {
+  useEffect, useMemo, useRef, useState,
+} from 'react';
 
-import { Paper } from '@mui/material';
+import {
+  Modal, Tooltip, Paper, Box, Button,
+} from '@mui/material';
 import styles from './JobCard.module.css';
 
 function JobCard({
@@ -8,7 +12,22 @@ function JobCard({
   isLastCard,
   fetchMoreJobs,
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isApplied, setIsApplied] = useState(false);
+
   const ref = useRef(null);
+
+  const {
+    jdUid,
+    jdLink,
+    jobRole,
+    location,
+    minJdSalary,
+    maxJdSalary,
+    salaryCurrencyCode,
+    minExp,
+    jobDetailsFromCompany,
+  } = job;
 
   const observer = useMemo(() => new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) fetchMoreJobs();
@@ -24,6 +43,14 @@ function JobCard({
     }
   }, [isLastCard, observer]);
 
+  // extracting company name from job.jdLink as it is a dummy data
+  const companyName = jdLink
+    .replace('https://', '')
+    .replace('.com', '');
+
+  // is Estimated Salary -> Randomly generated for now
+  const isEstimated = Math.random() > 0.4;
+
   return (
     <Paper
       square={false}
@@ -32,12 +59,106 @@ function JobCard({
       hover
       ref={ref}
     >
-      <div className={styles.jobTitle}>
-        {job.jobRole}
+      <div className={styles.heroItems}>
+        {/*
+        logo, company, role
+        */}
+        <img
+          src={`https://picsum.photos/200/300?random=${jdUid}`}
+          alt="Company Logo"
+          className={styles.logo}
+        />
+
+        <div className={styles.heroDetails}>
+          <a
+            href={jdLink}
+            className={styles.companyName}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {companyName}
+          </a>
+          {jobRole && (
+            <div className={styles.role}>{jobRole}</div>
+          )}
+          {location && (
+            <div className={styles.location}>{location}</div>
+          )}
+        </div>
       </div>
-      <div className={styles.jobDescription}>
-        {job.jobDetailsFromCompany.slice(0, 100)}
+      <div className={styles.salary}>
+        Estimated Salary:
+        { minJdSalary && ` ${minJdSalary}k ${salaryCurrencyCode}` }
+        {
+          minJdSalary && maxJdSalary && (
+            ` - ${maxJdSalary}k ${salaryCurrencyCode}`
+          )
+        }
+        {!minJdSalary && !maxJdSalary && ' Not Available'}
+        {
+          !minJdSalary && maxJdSalary && (
+            ` Upto ${maxJdSalary}k ${salaryCurrencyCode}`
+          )
+        }
+        { !isEstimated && (
+          <Tooltip title="Offered Salary Range" className={styles.estimate}>
+            ✅
+          </Tooltip>
+        )}
       </div>
+      <div className={styles.jdContainer}>
+        <div className={styles.about}>
+          About Company
+        </div>
+        <div className={styles.jdContent}>
+          {jobDetailsFromCompany}
+        </div>
+        <button
+          type="button"
+          className={styles.showMore}
+          onClick={() => setIsModalOpen(true)}
+        >
+          Show More
+        </button>
+      </div>
+      {minExp && (
+        <div className={styles.expContainer}>
+          <div className={styles.expLabel}>
+            Minimum Experience
+          </div>
+          <div className={styles.expValue}>
+            {`${minExp} ${minExp > 1 ? 'years' : 'year'}`}
+          </div>
+        </div>
+      )}
+      <Button
+        variant="contained"
+        className={styles.cta}
+        onClick={() => setIsApplied(true)}
+      >
+        {
+          !isApplied ? (
+            <>
+              <div className={styles.flash}>⚡</div>
+              Easy Apply
+            </>
+          ) : (
+            <>
+              Applied
+              <div className={styles.flash}>🔥</div>
+            </>
+          )
+        }
+      </Button>
+      <Modal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        <Box className={styles.modalContent}>
+          <div className={styles.modalHeader}>Job Description</div>
+          <div>{jobDetailsFromCompany}</div>
+        </Box>
+      </Modal>
     </Paper>
   );
 }
