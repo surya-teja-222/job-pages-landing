@@ -50,7 +50,8 @@ function JobCard({
     .replace('.com', '');
 
   // is isOriginalSalary -> Randomly generated for now
-  const isOriginalSalary = Math.random() > 0.6;
+  // memoizing it to avoid re-rendering
+  const isOriginalSalary = useMemo(() => Math.random() > 0.6, []);
 
   return (
     <Paper
