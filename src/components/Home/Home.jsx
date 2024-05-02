@@ -1,11 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  increment,
-  decrement, reset,
-} from '../../stores/counter';
-import './Home.module.css';
+
+import { increment, decrement, reset } from '../../stores/counter';
 import JobList from '../JobList';
+
+import './Home.module.css';
 
 function Home() {
   const dispatch = useDispatch();

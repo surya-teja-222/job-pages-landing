@@ -9,13 +9,11 @@ export const allJobsSelector = createSelector(
 
     Object.entries(jobs).forEach(([pageNum, { data }]) => {
       if (data?.jdList?.length) {
-        allJobs.push(...data.jdList.map((job, index) => (
-          {
-            ...job,
-            pageNum,
-            pageItemIndex: index,
-          }
-        )));
+        const jobData = data.jdList.map((job, index) => (
+          { ...job, pageNum, pageItemIndex: index }
+        ));
+
+        allJobs.push(jobData);
       }
     });
 

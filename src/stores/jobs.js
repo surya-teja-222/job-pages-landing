@@ -2,25 +2,25 @@ import fetchJobsApi from '../api/jobs';
 
 const BASE_NAME = 'jobs';
 
-const INIT_GET_JOBS = `${BASE_NAME}/INIT_GET_JOBS`;
-const SUCCESS_GET_JOBS = `${BASE_NAME}/SUCCESS_GET_JOBS`;
-const ERROR_GET_JOBS = `${BASE_NAME}/ERROR_GET_JOBS`;
+const GET_JOBS_INIT = `${BASE_NAME}/GET_JOBS_INIT`;
+const GET_JOBS_DONE = `${BASE_NAME}/GET_JOBS_DONE`;
+const GET_JOBS_ERROR = `${BASE_NAME}/GET_JOBS_ERROR`;
 const SET_MAX_LOADED_PAGE = `${BASE_NAME}/SET_MAX_LOADED_PAGE`;
 
 const ITEMS_PER_PAGE = 10;
 
 function initGetJobs(pageNumber) {
   return {
-    type: INIT_GET_JOBS,
+    type: GET_JOBS_INIT,
     payload: {
       pageNumber,
     },
   };
 }
 
-function successGetJobs(jobs, pageNumber) {
+function getJobDone(jobs, pageNumber) {
   return {
-    type: SUCCESS_GET_JOBS,
+    type: GET_JOBS_DONE,
     payload: {
       jobs,
       pageNumber,
@@ -30,7 +30,7 @@ function successGetJobs(jobs, pageNumber) {
 
 function errorGetJobs(error, pageNumber) {
   return {
-    type: ERROR_GET_JOBS,
+    type: GET_JOBS_ERROR,
     payload: {
       error,
       pageNumber,
@@ -47,35 +47,36 @@ function setMaxLoadedPage(maxLoadedPage) {
   };
 }
 
-export function fetchJobsFromApi({
-  limit,
-  offset,
+export function fetchJobsOfPage({
+  pageToLoad,
 }) {
-  return async (dispatch) => {
-    const pageNumber = offset / ITEMS_PER_PAGE;
+  return async (dispatch, getState) => {
+    const { jobs } = getState().jobs;
+    if (jobs[pageToLoad]) return;
 
-    dispatch(initGetJobs(pageNumber));
+    dispatch(initGetJobs(pageToLoad));
+
     try {
-      const jobs = await fetchJobsApi({
-        limit,
-        offset,
+      const jobsData = await fetchJobsApi({
+        limit: ITEMS_PER_PAGE,
+        offset: (pageToLoad * ITEMS_PER_PAGE),
       });
-      dispatch(successGetJobs(jobs, pageNumber));
-      dispatch(setMaxLoadedPage(pageNumber));
+      dispatch(getJobDone(jobsData, pageToLoad));
+      dispatch(setMaxLoadedPage(pageToLoad));
     } catch (error) {
-      dispatch(errorGetJobs(error, pageNumber));
+      dispatch(errorGetJobs(error, pageToLoad));
     }
   };
 }
 
 const initialState = {
   jobs: {},
-  maxLoadedPages: 0,
+  maxLoadedPages: -1,
 };
 
 function jobsReducer(state = initialState, action) {
   switch (action.type) {
-    case INIT_GET_JOBS: {
+    case GET_JOBS_INIT: {
       const { pageNumber } = action.payload;
       return {
         ...state,
@@ -89,7 +90,7 @@ function jobsReducer(state = initialState, action) {
         },
       };
     }
-    case SUCCESS_GET_JOBS: {
+    case GET_JOBS_DONE: {
       const { jobs, pageNumber } = action.payload;
       return {
         ...state,
@@ -103,7 +104,7 @@ function jobsReducer(state = initialState, action) {
         },
       };
     }
-    case ERROR_GET_JOBS: {
+    case GET_JOBS_ERROR: {
       const { error, pageNumber } = action.payload;
       return {
         ...state,
