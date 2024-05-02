@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 
+import { Paper } from '@mui/material';
 import styles from './JobCard.module.css';
 
 function JobCard({
@@ -23,21 +24,37 @@ function JobCard({
     }
   }, [isLastCard, observer]);
 
+  // return (
+  //   <div className={styles.JobCard} ref={ref}>
+  //     <h1>
+  //       {
+  //         isLastCard
+  //           ? 'Last Card'
+  //           : 'Not Last Card'
+  //       }
+  //     </h1>
+  //     <div>
+  //       {
+  //         JSON.stringify(job, null, 2).slice(0, 100)
+  //       }
+  //     </div>
+  //   </div>
+  // );
   return (
-    <div className={styles.JobCard} ref={ref}>
-      <h1>
-        {
-          isLastCard
-            ? 'Last Card'
-            : 'Not Last Card'
-        }
-      </h1>
-      <div>
-        {
-          JSON.stringify(job, null, 2).slice(0, 100)
-        }
+    <Paper
+      square={false}
+      elevation={3}
+      className={styles.jobCard}
+      hover
+      ref={ref}
+    >
+      <div className={styles.jobTitle}>
+        {job.jobRole}
       </div>
-    </div>
+      <div className={styles.jobDescription}>
+        {job.jobDetailsFromCompany.slice(0, 100)}
+      </div>
+    </Paper>
   );
 }
 

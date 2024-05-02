@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { Grid } from '@mui/material';
 import { allJobsSelector, maxLoadedPageSelector } from '../../selectors/jobs';
 import { fetchJobsOfPage } from '../../stores/jobs';
 import { ITEMS_PER_PAGE } from '../../utils/jobs';
@@ -24,10 +24,9 @@ function JobList() {
   }, [fetchMoreJobs, maxPagesLoaded]);
 
   return (
-    <>
-      <h1>JobList</h1>
-      <div className={styles.jobList}>
-        {allJobData.map((job) => (
+    <Grid container spacing={6} className={styles.jobList}>
+      {allJobData.map((job) => (
+        <Grid item xs={4}>
           <JobCard
             key={job.jdUid}
             job={job}
@@ -40,9 +39,9 @@ function JobList() {
             }
             fetchMoreJobs={fetchMoreJobs}
           />
-        ))}
-      </div>
-    </>
+        </Grid>
+      ))}
+    </Grid>
   );
 }
 

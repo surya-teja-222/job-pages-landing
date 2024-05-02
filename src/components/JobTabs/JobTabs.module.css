@@ -1,0 +1,19 @@
+.tabContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.button {
+  font-size: 16px;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.active {
+  border-bottom: 1px solid #3522e2;
+}

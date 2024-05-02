@@ -1,25 +1,31 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 
-import { increment, decrement, reset } from '../../stores/counter';
+import { useSelector } from 'react-redux';
+import { Skeleton } from '@mui/material';
 import JobList from '../JobList';
-
-import './Home.module.css';
+import styles from './Home.module.css';
+import JobTabs from '../JobTabs';
+import { activeTabSelector } from '../../selectors/tabs';
+import { AVAILABLE_TABS } from '../../stores/tabs';
 
 function Home() {
-  const dispatch = useDispatch();
-  const counter = useSelector((state) => state.counter);
+  const activeTab = useSelector(activeTabSelector);
 
   return (
-    <div>
-      <h1>Counter</h1>
-      <h2>{counter}</h2>
-      <div>
-        <button type="button" onClick={() => dispatch(increment())}>+</button>
-        <button type="button" onClick={() => dispatch(decrement())}>-</button>
-        <button type="button" onClick={() => dispatch(reset())}>Reset</button>
-      </div>
-      <JobList />
+    <div className={styles.root}>
+      <JobTabs />
+      {activeTab === AVAILABLE_TABS.all ? (
+        <JobList />
+      ) : (
+        <div className={styles.devInProgress}>
+          Under Construction
+          <div className={styles.loader}>
+            <Skeleton />
+            <Skeleton animation="wave" />
+            <Skeleton animation={false} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
