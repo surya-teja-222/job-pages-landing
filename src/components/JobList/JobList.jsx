@@ -1,14 +1,13 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { allJobsSelector, maxLoadedPageSelector } from '../../selectors/jobs';
+import { filteredJobsSelector, maxLoadedPageSelector } from '../../selectors/jobs';
 import { fetchJobsOfPage } from '../../stores/jobs';
-import { ITEMS_PER_PAGE } from '../../utils/jobs';
 import JobCard from '../../ui/JobCard';
 import styles from './JobList.module.css';
 
 function JobList() {
   const dispatch = useDispatch();
-  const allJobData = useSelector(allJobsSelector);
+  const allJobData = useSelector(filteredJobsSelector);
   const maxPagesLoaded = useSelector(maxLoadedPageSelector);
 
   const fetchMoreJobs = useCallback(() => {
@@ -22,19 +21,15 @@ function JobList() {
     }
   }, [fetchMoreJobs, maxPagesLoaded]);
 
+  const jobsLength = allJobData.length;
+
   return (
     <div className={styles.jobList}>
-      {allJobData.map((job) => (
+      {allJobData.map((job, idx) => (
         <JobCard
           key={job.jdUid}
           job={job}
-          isLastCard={
-              // checking isLastCard && Card Index is 9
-              !!(
-                parseInt(job.pageNum, 10) === maxPagesLoaded
-                && job.pageItemIndex === (ITEMS_PER_PAGE - 1)
-              )
-            }
+          isLastCard={idx === jobsLength - 1}
           fetchMoreJobs={fetchMoreJobs}
         />
       ))}

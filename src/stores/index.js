@@ -5,6 +5,7 @@ import { thunk } from 'redux-thunk';
 
 import TabsReducer from './tabs';
 import jobsReducer from './jobs';
+import jobFiltersReducer from './jobFilters';
 
 const middleware = [
   thunk,
@@ -12,6 +13,7 @@ const middleware = [
 
 const reducers = combineReducers({
   jobs: jobsReducer,
+  jobFilters: jobFiltersReducer,
   tabs: TabsReducer,
 });
 

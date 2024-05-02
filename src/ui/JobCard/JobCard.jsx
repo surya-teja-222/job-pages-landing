@@ -48,8 +48,8 @@ function JobCard({
     .replace('https://', '')
     .replace('.com', '');
 
-  // is Estimated Salary -> Randomly generated for now
-  const isEstimated = Math.random() > 0.4;
+  // is isOriginalSalary -> Randomly generated for now
+  const isOriginalSalary = Math.random() > 0.6;
 
   return (
     <Paper
@@ -60,9 +60,6 @@ function JobCard({
       ref={ref}
     >
       <div className={styles.heroItems}>
-        {/*
-        logo, company, role
-        */}
         <img
           src={`https://picsum.photos/200/300?random=${jdUid}`}
           alt="Company Logo"
@@ -78,12 +75,8 @@ function JobCard({
           >
             {companyName}
           </a>
-          {jobRole && (
-            <div className={styles.role}>{jobRole}</div>
-          )}
-          {location && (
-            <div className={styles.location}>{location}</div>
-          )}
+          {jobRole && (<div className={styles.role}>{jobRole}</div>)}
+          {location && (<div className={styles.location}>{location}</div>)}
         </div>
       </div>
       <div className={styles.salary}>
@@ -100,8 +93,11 @@ function JobCard({
             ` Upto ${maxJdSalary}k ${salaryCurrencyCode}`
           )
         }
-        { !isEstimated && (
-          <Tooltip title="Offered Salary Range" className={styles.estimate}>
+        { !isOriginalSalary && (
+          <Tooltip
+            title="Offered Salary Range"
+            className={styles.estimate}
+          >
             ✅
           </Tooltip>
         )}
