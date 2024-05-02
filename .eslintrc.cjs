@@ -17,6 +17,9 @@ module.exports = {
     'react/jsx-no-target-blank': 'off',
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "import/no-import-module-exports": "off",
+    "no-restricted-exports": [
+      "error", { "restrictDefaultExports": { "defaultFrom": false } }
+    ],
     "default-param-last": 0,
     'react/prop-types': 0,
     'react-refresh/only-export-components': [

@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   increment,
   decrement, reset,
-} from './stores/counter';
-import './App.css';
+} from '../../stores/counter';
+import './Home.module.css';
+import JobList from '../JobList';
 
-function App() {
+function Home() {
   const dispatch = useDispatch();
   const counter = useSelector((state) => state.counter);
+
   return (
     <div>
       <h1>Counter</h1>
@@ -18,8 +20,9 @@ function App() {
         <button type="button" onClick={() => dispatch(decrement())}>-</button>
         <button type="button" onClick={() => dispatch(reset())}>Reset</button>
       </div>
+      <JobList />
     </div>
   );
 }
 
-export default App;
+export default Home;

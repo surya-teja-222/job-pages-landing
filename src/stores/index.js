@@ -4,6 +4,7 @@ import {
 import { thunk } from 'redux-thunk';
 
 import counterReducer from './counter';
+import jobsReducer from './jobs';
 
 const middleware = [
   thunk,
@@ -11,6 +12,7 @@ const middleware = [
 
 const reducers = combineReducers({
   counter: counterReducer,
+  jobs: jobsReducer,
 });
 
 const composeEnhancers = typeof window === 'object'
