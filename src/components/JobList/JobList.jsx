@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { allJobsSelector, maxLoadedPageSelector } from '../../selectors/jobs';
 import { fetchJobsOfPage } from '../../stores/jobs';
+import { ITEMS_PER_PAGE } from '../../utils/jobs';
 import JobCard from '../../ui/JobCard';
 import styles from './JobList.module.css';
 
@@ -34,7 +35,7 @@ function JobList() {
               // checking isLastCard && Card Index is 9
               !!(
                 parseInt(job.pageNum, 10) === maxPagesLoaded
-                && job.pageItemIndex === 9
+                && job.pageItemIndex === (ITEMS_PER_PAGE - 1)
               )
             }
             fetchMoreJobs={fetchMoreJobs}

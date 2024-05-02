@@ -13,7 +13,7 @@ export const allJobsSelector = createSelector(
           { ...job, pageNum, pageItemIndex: index }
         ));
 
-        allJobs.push(jobData);
+        allJobs.push(...jobData);
       }
     });
 

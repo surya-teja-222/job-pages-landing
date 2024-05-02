@@ -1,4 +1,5 @@
 import fetchJobsApi from '../api/jobs';
+import { ITEMS_PER_PAGE } from '../utils/jobs';
 
 const BASE_NAME = 'jobs';
 
@@ -6,8 +7,6 @@ const GET_JOBS_INIT = `${BASE_NAME}/GET_JOBS_INIT`;
 const GET_JOBS_DONE = `${BASE_NAME}/GET_JOBS_DONE`;
 const GET_JOBS_ERROR = `${BASE_NAME}/GET_JOBS_ERROR`;
 const SET_MAX_LOADED_PAGE = `${BASE_NAME}/SET_MAX_LOADED_PAGE`;
-
-const ITEMS_PER_PAGE = 10;
 
 function initGetJobs(pageNumber) {
   return {
