@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { useSelector } from 'react-redux';
-import { Skeleton } from '@mui/material';
 import JobList from '../JobList';
 import styles from './Home.module.css';
 import JobTabs from '../JobTabs';
 import { activeTabSelector } from '../../selectors/tabs';
 import { AVAILABLE_TABS } from '../../stores/tabs';
+import UnderDev from '../../ui/UnderDev';
 
 function Home() {
   const activeTab = useSelector(activeTabSelector);
@@ -17,14 +17,7 @@ function Home() {
       {activeTab === AVAILABLE_TABS.all ? (
         <JobList />
       ) : (
-        <div className={styles.devInProgress}>
-          Under Construction
-          <div className={styles.loader}>
-            <Skeleton />
-            <Skeleton animation="wave" />
-            <Skeleton animation={false} />
-          </div>
-        </div>
+        <UnderDev />
       )}
     </div>
   );

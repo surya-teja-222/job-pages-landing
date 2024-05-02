@@ -1,0 +1,10 @@
+.devInProgress {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.loader {
+  max-width: 36rem;
+  margin: auto;
+}

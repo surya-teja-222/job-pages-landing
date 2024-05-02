@@ -24,22 +24,6 @@ function JobCard({
     }
   }, [isLastCard, observer]);
 
-  // return (
-  //   <div className={styles.JobCard} ref={ref}>
-  //     <h1>
-  //       {
-  //         isLastCard
-  //           ? 'Last Card'
-  //           : 'Not Last Card'
-  //       }
-  //     </h1>
-  //     <div>
-  //       {
-  //         JSON.stringify(job, null, 2).slice(0, 100)
-  //       }
-  //     </div>
-  //   </div>
-  // );
   return (
     <Paper
       square={false}
