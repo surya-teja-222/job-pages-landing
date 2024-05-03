@@ -71,6 +71,8 @@ export function fetchJobsOfPage({
 const initialState = {
   jobs: {},
   maxLoadedPages: -1,
+  cardsLoading: false,
+  cardsLoadingError: null,
 };
 
 function jobsReducer(state = initialState, action) {
@@ -87,6 +89,8 @@ function jobsReducer(state = initialState, action) {
             data: [],
           },
         },
+        cardsLoading: true,
+        cardsLoadingError: null,
       };
     }
     case GET_JOBS_DONE: {
@@ -101,6 +105,8 @@ function jobsReducer(state = initialState, action) {
             data: jobs,
           },
         },
+        cardsLoading: false,
+        cardsLoadingError: null,
       };
     }
     case GET_JOBS_ERROR: {
@@ -115,6 +121,8 @@ function jobsReducer(state = initialState, action) {
             data: [],
           },
         },
+        cardsLoading: false,
+        cardsLoadingError: error,
       };
     }
     case SET_MAX_LOADED_PAGE: {

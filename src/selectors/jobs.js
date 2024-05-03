@@ -8,14 +8,8 @@ export const allJobsSelector = createSelector(
   ({ jobs }) => {
     const allJobs = [];
 
-    Object.entries(jobs).forEach(([pageNum, { data }]) => {
-      if (data?.jdList?.length) {
-        const jobData = data.jdList.map((job, index) => (
-          { ...job, pageNum, pageItemIndex: index }
-        ));
-
-        allJobs.push(...jobData);
-      }
+    Object.entries(jobs).forEach(([, { data }]) => {
+      if (data?.jdList?.length) allJobs.push(...data.jdList);
     });
 
     return allJobs;
@@ -29,14 +23,10 @@ export const maxLoadedPageSelector = createSelector(
 
 export const lastCardLoaderSelector = createSelector(
   baseSelector,
-  ({ jobs }) => {
-    const lastPage = Object.values(jobs).pop() || {};
-
-    return {
-      isLoading: lastPage.isLoading,
-      erorr: lastPage.error,
-    };
-  },
+  (data) => ({
+    isLoading: data.cardsLoading,
+    erorr: data.cardsLoadingError,
+  }),
 );
 
 // filters data

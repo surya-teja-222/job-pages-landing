@@ -25,23 +25,22 @@ This Project is bootstrapped with Vitejs
 ## Project Folder Structure:
 ```
 src/
-  └── mentee/
-      ├── api/
-      ├── stores/
-      ├── selectors/
-      ├── ui/
-      │   └── SampleSelect/
-      │       ├── SampleSelect.jsx
-      │       ├── SampleSelect.module.css
-      │       └── index.js
-      ├── components/
-      │   └── SampleComponent/
-      │       ├── SampleComponent.jsx
-      │       ├── SampleComponent.module.css
-      │       └── index.js
-      ├── providers/
-      └── utils/
-          └── ~ one file for each util function
+  ├── api/
+  ├── stores/
+  ├── selectors/
+  ├── ui/
+  │   └── SampleSelect/
+  │       ├── SampleSelect.jsx
+  │       ├── SampleSelect.module.css
+  │       └── index.js
+  ├── components/
+  │   └── SampleComponent/
+  │       ├── SampleComponent.jsx
+  │       ├── SampleComponent.module.css
+  │       └── index.js
+  ├── providers/
+  └── utils/
+      └── ~ one file for each util function
 ```
 
 ## External Libraries Used:

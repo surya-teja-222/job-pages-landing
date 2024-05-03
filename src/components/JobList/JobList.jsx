@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@mui/material';
 import { filteredJobsSelector, lastCardLoaderSelector, maxLoadedPageSelector } from '../../selectors/jobs';
@@ -29,6 +29,13 @@ function JobList() {
 
   const jobsLength = allJobData?.length;
 
+  const loaderComponent = useMemo(() => (
+    Array.from({ length: 7 }).map((_, idx) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <JobCardLoading key={idx} />
+    ))
+  ), []);
+
   return (
     <div className={styles.jobList}>
       {allJobData?.map((job, idx) => (
@@ -39,15 +46,12 @@ function JobList() {
           fetchMoreJobs={fetchMoreJobs}
         />
       ))}
-      {isLoading && Array.from({ length: 7 }).map((_, idx) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <JobCardLoading key={idx} />
-      ))}
-      {erorr && (
-      <div className={styles.error}>
-        Failed To Fetch More Jobs
-        <Button onClick={fetchMoreJobs}>Retry</Button>
-      </div>
+      {isLoading && (loaderComponent)}
+      {!!erorr && (
+        <div className={styles.error}>
+          Failed To Fetch More Jobs
+          <Button onClick={fetchMoreJobs}>Retry</Button>
+        </div>
       )}
     </div>
   );

@@ -35,13 +35,14 @@ function JobCard({
   }, {
     root: null,
     rootMargin: '20px',
-    threshold: 1.0,
+    threshold: 0.3,
   }), [fetchMoreJobs]);
 
   useEffect(() => {
     if (isLastCard && ref.current) {
       observer.observe(ref.current);
     }
+    return () => observer.disconnect();
   }, [isLastCard, observer]);
 
   // extracting company name from job.jdLink as it is a dummy data
