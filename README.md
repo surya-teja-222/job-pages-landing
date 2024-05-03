@@ -3,6 +3,9 @@
 
 This Project is bootstrapped with Vitejs
 
+## Overview
+https://www.loom.com/share/e5a5622ba8244273b5456d5180f026ba?sid=7e9843c9-04dd-454b-bb0f-52fcbf452bad
+
 ## Features
 1. Infinite Scroll.
 2. Responsive Design Scalable Across Large Desktops, Tablet, Mobile Phones
