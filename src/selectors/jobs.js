@@ -85,7 +85,7 @@ export const filteredJobsSelector = createSelector(
     const filteredJobs = jobs.filter((job) => {
       const {
         minExp: minExpFromJob,
-        jdLink,
+        companyName,
         location,
         jobRole,
         minJdSalary,
@@ -93,9 +93,7 @@ export const filteredJobsSelector = createSelector(
 
       const isExpValid = minExpFromJob >= minExp;
       const isCompanyValid = !preferredCompanies || preferredCompanies.includes(
-        jdLink
-          .replace('https://', '')
-          .replace('.com', ''),
+        companyName,
       );
       const isLocationValid = !preferredLocations || preferredLocations.includes(location);
       const isOnsiteOrRemoteValid = !prefersOnsiteOrRemote || (
