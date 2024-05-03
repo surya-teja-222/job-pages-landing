@@ -27,6 +27,18 @@ export const maxLoadedPageSelector = createSelector(
   ({ maxLoadedPages }) => maxLoadedPages,
 );
 
+export const lastCardLoaderSelector = createSelector(
+  baseSelector,
+  ({ jobs }) => {
+    const lastPage = Object.values(jobs).pop() || {};
+
+    return {
+      isLoading: lastPage.isLoading,
+      erorr: lastPage.error,
+    };
+  },
+);
+
 // filters data
 export const uniqueCompaniesSelector = createSelector(
   allJobsSelector,

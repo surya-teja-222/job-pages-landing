@@ -1,14 +1,20 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { filteredJobsSelector, maxLoadedPageSelector } from '../../selectors/jobs';
+import { Button } from '@mui/material';
+import { filteredJobsSelector, lastCardLoaderSelector, maxLoadedPageSelector } from '../../selectors/jobs';
 import { fetchJobsOfPage } from '../../stores/jobs';
 import JobCard from '../../ui/JobCard';
 import styles from './JobList.module.css';
+import JobCardLoading from '../../ui/JobCardLoading';
 
 function JobList() {
   const dispatch = useDispatch();
   const allJobData = useSelector(filteredJobsSelector);
   const maxPagesLoaded = useSelector(maxLoadedPageSelector);
+  const {
+    isLoading,
+    erorr,
+  } = useSelector(lastCardLoaderSelector);
 
   const fetchMoreJobs = useCallback(() => {
     dispatch(fetchJobsOfPage({ pageToLoad: maxPagesLoaded + 1 }));
@@ -21,11 +27,11 @@ function JobList() {
     }
   }, [fetchMoreJobs, maxPagesLoaded]);
 
-  const jobsLength = allJobData.length;
+  const jobsLength = allJobData?.length;
 
   return (
     <div className={styles.jobList}>
-      {allJobData.map((job, idx) => (
+      {allJobData?.map((job, idx) => (
         <JobCard
           key={job.jdUid}
           job={job}
@@ -33,6 +39,16 @@ function JobList() {
           fetchMoreJobs={fetchMoreJobs}
         />
       ))}
+      {isLoading && Array.from({ length: 7 }).map((_, idx) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <JobCardLoading key={idx} />
+      ))}
+      {erorr && (
+      <div className={styles.error}>
+        Failed To Fetch More Jobs
+        <Button onClick={fetchMoreJobs}>Retry</Button>
+      </div>
+      )}
     </div>
   );
 }
