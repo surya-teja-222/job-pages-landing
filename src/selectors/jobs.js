@@ -33,12 +33,10 @@ export const lastCardLoaderSelector = createSelector(
 export const uniqueCompaniesSelector = createSelector(
   allJobsSelector,
   (jobs) => {
-    const companies = jobs.map(({ jdLink }) => (
-      jdLink
-        .replace('https://', '')
-        .replace('.com', '')
+    const companies = jobs.map(({ companyName }) => (
+      companyName
     ));
-
+    companies.sort();
     return [...new Set(companies)];
   },
 );
@@ -47,7 +45,7 @@ export const uniqueLocationsSelector = createSelector(
   allJobsSelector,
   (jobs) => {
     const locations = jobs.map(({ location }) => location);
-
+    locations.sort();
     return [...new Set(locations)];
   },
 );
@@ -56,7 +54,7 @@ export const availableTechStackSelector = createSelector(
   allJobsSelector,
   (jobs) => {
     const techStack = jobs.map(({ jobRole }) => jobRole);
-
+    techStack.sort();
     return [...new Set(techStack)];
   },
 );
@@ -65,7 +63,7 @@ export const availableRolesSelector = createSelector(
   allJobsSelector,
   (jobs) => {
     const roles = jobs.map(({ jobRole }) => jobRole);
-
+    roles.sort();
     return [...new Set(roles)];
   },
 );

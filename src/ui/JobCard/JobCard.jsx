@@ -28,6 +28,7 @@ function JobCard({
     salaryCurrencyCode,
     minExp,
     jobDetailsFromCompany,
+    companyName,
   } = job;
 
   const observer = useMemo(() => new IntersectionObserver((entries) => {
@@ -44,11 +45,6 @@ function JobCard({
     }
     return () => observer.disconnect();
   }, [isLastCard, observer]);
-
-  // extracting company name from job.jdLink as it is a dummy data
-  const companyName = jdLink
-    .replace('https://', '')
-    .replace('.com', '');
 
   // is isOriginalSalary -> Randomly generated for now
   // memoizing it to avoid re-rendering
