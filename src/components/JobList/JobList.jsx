@@ -12,7 +12,6 @@ function JobList() {
   const allJobData = useSelector(filteredJobsSelector);
   const maxPagesLoaded = useSelector(maxLoadedPageSelector);
   const {
-    isLoading,
     erorr,
   } = useSelector(lastCardLoaderSelector);
 
@@ -46,7 +45,7 @@ function JobList() {
           fetchMoreJobs={fetchMoreJobs}
         />
       ))}
-      {isLoading && (loaderComponent)}
+      {!erorr && (loaderComponent)}
       {!!erorr && (
         <div className={styles.error}>
           Failed To Fetch More Jobs

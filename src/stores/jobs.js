@@ -50,8 +50,9 @@ export function fetchJobsOfPage({
   pageToLoad,
 }) {
   return async (dispatch, getState) => {
-    const { jobs } = getState().jobs;
+    const { jobs, cardsLoading } = getState().jobs;
     if (jobs[pageToLoad]?.data?.length) return;
+    if (cardsLoading) return;
 
     dispatch(initGetJobs(pageToLoad));
 

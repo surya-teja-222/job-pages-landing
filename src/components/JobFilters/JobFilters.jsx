@@ -13,10 +13,10 @@ function JobFilters() {
   return (
     <div className={styles.container}>
       <div className={styles.selects}>
-        <AvaliableCompaniesSelect />
         <AvaliableLocationSelect />
         <AvaliableRolesSelect />
         <AvaliableTechStackSelect />
+        <AvaliableCompaniesSelect />
         <MinExperienceSelector />
         <MinBasePay />
       </div>
